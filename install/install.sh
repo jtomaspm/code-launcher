@@ -80,8 +80,8 @@ add_default_config() {
     echo 'paths:' >> ~/.config/code-launcher/config.yaml
     echo '- ~/Documents/code/' >> ~/.config/code-launcher/config.yaml
     echo 'launchers:' >> ~/.config/code-launcher/config.yaml
-    echo '- code .' >> ~/.config/code-launcher/config.yaml
-    echo '- nvim .' >> ~/.config/code-launcher/config.yaml
+    echo '- Visual Studio Code;code .' >> ~/.config/code-launcher/config.yaml
+    echo '- NeoVim;nvim .' >> ~/.config/code-launcher/config.yaml
     echo "Added default config..."
 }
 
