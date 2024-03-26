@@ -1,7 +1,17 @@
 #!/bin/bash
 
+load_config() {
+    if stat "${HOME}/.config/code-launcher/config.yaml" &> /dev/null; then
+        echo "Loading config..."
+    else
+        echo "Error: Config not found!"
+        echo "Help: https://github.com/jtomaspm/code-launcher/tree/main?tab=readme-ov-file#configuration"
+        exit 1
+    fi
+}
+
 main() {
-    echo "Test update"
+    load_config
 }
 
 main
