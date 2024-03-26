@@ -17,7 +17,7 @@ greeting() {
 
     if [[ $opt = "n" || $opt = "N" || opt = "no" || opt = "No" || opt = "nO" || opt = "NO" ]]; then 
         echo "Ending installation..."
-        return 0
+        exit 0
     fi
 }
 
@@ -30,20 +30,30 @@ check_installed() {
     fi
 }
 
+export_to_path() {
+    if ! grep -qxF 'export PATH="$PATH:$HOME/.local/bin"' ~/.bashrc; then
+        echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+        source ~/.bashrc
+        echo "codl added to path..."
+    else
+        echo "codl already in path..."
+    fi
+}
+
 install_fzf() {
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
 }
 
 install_codl() {
-    echo "Gettting latest version on code-launcher..."
+    echo "Gettting latest version of code-launcher..."
     echo ""
     echo ""
+    mkdir ~/.local/share/ 
     rm ~/.local/share/codl
     wget https://github.com/jtomaspm/code-launcher/raw/main/src/codl
     mv codl ~/.local/share/codl
     chmod +x ~/.local/share/codl
-    export PATH="$PATH:$HOME/.local/share/codl"
 } 
 
 install_deps() {
