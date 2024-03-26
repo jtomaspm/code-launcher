@@ -3,6 +3,7 @@
 greeting() {
     echo ""
     echo "Installing code-launcher..."
+    echo ""
     echo "Make sure the following dependencies are installed:"
     echo "    - git-cli"
     echo ""
