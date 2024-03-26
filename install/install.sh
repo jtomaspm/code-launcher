@@ -31,8 +31,8 @@ check_installed() {
 }
 
 export_to_path() {
-    if ! grep -qxF 'export PATH="$PATH:$HOME/.local/bin"' ~/.bashrc; then
-        echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+    if ! grep -qxF 'export PATH="$PATH:$HOME/.local/share"' ~/.bashrc; then
+        echo 'export PATH="$PATH:$HOME/.local/share"' >> ~/.bashrc
         source ~/.bashrc
         echo "codl added to path..."
     else
@@ -54,6 +54,7 @@ install_codl() {
     wget https://github.com/jtomaspm/code-launcher/raw/main/src/codl
     mv codl ~/.local/share/codl
     chmod +x ~/.local/share/codl
+    export_to_path    
 } 
 
 install_deps() {
