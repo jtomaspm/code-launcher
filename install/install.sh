@@ -36,11 +36,14 @@ install_fzf() {
 }
 
 install_codl() {
-    echo "Gettting latest version on code-launcher"
+    echo "Gettting latest version on code-launcher..."
+    echo ""
+    echo ""
     rm ~/.local/share/codl
     wget https://github.com/jtomaspm/code-launcher/raw/main/src/codl
     mv codl ~/.local/share/codl
     chmod +x ~/.local/share/codl
+    export PATH="$PATH:$HOME/.local/share"
 } 
 
 install_deps() {
