@@ -66,10 +66,10 @@ install_deps() {
     fi
     install_codl
 
-    if stat "~/.config/code-launcher/config.yaml" &> /dev/null; then
+    if stat "${HOME}/.config/code-launcher/config.yaml" &> /dev/null; then
         echo "Config found, skipping add default config..."
     else
-        echo "add_default_config"
+        echo add_default_config
     fi
 }
 
