@@ -82,6 +82,7 @@ add_default_config() {
     echo 'launchers:' >> ~/.config/code-launcher/config.yaml
     echo '- code .' >> ~/.config/code-launcher/config.yaml
     echo '- nvim .' >> ~/.config/code-launcher/config.yaml
+    echo "Added default config..."
 }
 
 main() {
