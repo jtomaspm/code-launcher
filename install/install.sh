@@ -43,7 +43,7 @@ install_codl() {
     wget https://github.com/jtomaspm/code-launcher/raw/main/src/codl
     mv codl ~/.local/share/codl
     chmod +x ~/.local/share/codl
-    export PATH="$PATH:$HOME/.local/share"
+    export PATH="$PATH:$HOME/.local/share/codl"
 } 
 
 install_deps() {
