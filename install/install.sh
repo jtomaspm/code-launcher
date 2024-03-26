@@ -51,7 +51,7 @@ install_codl() {
     echo ""
     mkdir ~/.local/share/ 
     rm ~/.local/share/codl
-    wget https://github.com/jtomaspm/code-launcher/raw/main/src/codl
+    wget https://github.com/jtomaspm/code-launcher/raw/main/src/codl &&
     mv codl ~/.local/share/codl
     chmod +x ~/.local/share/codl
     export_to_path    
