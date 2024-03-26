@@ -65,6 +65,23 @@ install_deps() {
         echo "fzf already installed, skipping..."
     fi
     install_codl
+
+    if [ -f "~/.config/code-launcher/config.yaml" ]; then
+        echo "Config found, skipping add default config..."
+    else
+        add_default_config
+    fi
+}
+
+add_default_config() {
+    echo "Adding default config..."
+    mkdir ~/.config/code-launcher/
+    touch ~/.config/code-launcher/config.yaml
+    echo 'paths:' >> ~/.config/code-launcher/config.yaml
+    echo '- ~/Documents/code/' >> ~/.config/code-launcher/config.yaml
+    echo 'launchers:' >> ~/.config/code-launcher/config.yaml
+    echo '- code .' >> ~/.config/code-launcher/config.yaml
+    echo '- nvim .' >> ~/.config/code-launcher/config.yaml
 }
 
 main() {
