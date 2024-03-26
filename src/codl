@@ -1,11 +1,11 @@
 #!/bin/bash
 
 extract_paths() {
-    echo "$1" | awk '/paths:/ {p=1; next} p && /^-/ {sub(/-/,""); print}'
+    echo "$1" | awk '/paths:/ {p=1; next} p && /^-/ {sub(/- /,""); print}'
 }
 
 extract_launchers() {
-    echo "$1" | awk '/launchers:/ {p=1; next} p && /^-/ {sub(/-/,""); print}'
+    echo "$1" | awk '/launchers:/ {p=1; next} p && /^-/ {sub(/- /,""); print}'
 }
 
 load_config() {
