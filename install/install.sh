@@ -6,6 +6,7 @@ greeting() {
     echo ""
     echo "Make sure the following dependencies are installed:"
     echo "    - git-cli"
+    echo "    - wget"
     echo ""
     echo "Installing dependencies: "
     echo "    - fzf"
@@ -34,6 +35,14 @@ install_fzf() {
     ~/.fzf/install
 }
 
+install_codl() {
+    echo "Gettting latest version on code-launcher"
+    rm ~/.local/share/codl
+    wget https://github.com/jtomaspm/code-launcher/raw/main/src/codl
+    mv codl ~/.local/share/codl
+    chmod +x ~/.local/share/codl
+} 
+
 install_deps() {
     check_installed "fzf"
     if [[ $? -eq 0 ]]; then
@@ -41,6 +50,7 @@ install_deps() {
     else
         echo "fzf already installed, skipping..."
     fi
+    install_codl
 }
 
 main() {
