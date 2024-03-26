@@ -12,7 +12,6 @@ load_config() {
     if stat "${HOME}/.config/code-launcher/config.yaml" &> /dev/null; then
         echo "Loading config..."
         yaml_content=$(cat ~/.config/code-launcher/config.yaml)
-        return yaml_content
     else
         echo "Error: Config not found!"
         echo "Help: https://github.com/jtomaspm/code-launcher/tree/main?tab=readme-ov-file#configuration"
@@ -22,7 +21,6 @@ load_config() {
 
 main() {
     load_config
-    yaml_content = "$?"
     extract_launchers "$yaml_content"
     extract_paths "$yaml_content"
 }
