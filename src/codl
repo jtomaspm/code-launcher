@@ -66,10 +66,11 @@ get_command() {
 }
 
 choose_path_menu() {
-    path_opt=$(echo "$ls_outputs" | fzf --header="$path_opt")
+    path_opt=$(echo "$ls_outputs" | fzf)
 }
 
 choose_launcher_menu() {
+    path_opt=$(echo "$path_opt" | sed 's/\/\{2,\}/\//g')
     launcher_opt=$(echo "$launcher_opts" | fzf --header="$path_opt")
     get_command
     cd $path_opt &&
