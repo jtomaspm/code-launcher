@@ -66,7 +66,7 @@ get_command() {
 }
 
 choose_path_menu() {
-    path_opt=$(echo "$ls_outputs" | fzf)
+    path_opt=$(echo "$ls_outputs" | fzf --header="Folder Name: ")
 }
 
 choose_launcher_menu() {
