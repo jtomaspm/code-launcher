@@ -29,6 +29,7 @@ Default config:
 ```
 paths:
 - ~/Documents/code/
+- ~/.config/
 launchers:
 - Visual Studio Code;code .
 - NeoVim;nvim .
