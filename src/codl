@@ -66,11 +66,11 @@ get_command() {
 }
 
 choose_path_menu() {
-    path_opt=$(echo "$ls_outputs" | fzf)
+    path_opt=$(echo "$ls_outputs" | fzf --header="$path_opt")
 }
 
 choose_launcher_menu() {
-    launcher_opt=$(echo "$launcher_opts" | fzf)
+    launcher_opt=$(echo "$launcher_opts" | fzf --header="$path_opt")
     get_command
     cd $path_opt &&
     eval $command_opt
