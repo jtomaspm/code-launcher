@@ -1,17 +1,13 @@
 #!/bin/bash
 
-extract_paths() {
-    echo "$1" | awk '/paths:/ {p=1; next} p && /^-/ {sub(/- /,""); print}'
-}
-
-extract_launchers() {
-    echo "$1" | awk '/launchers:/ {p=1; next} p && /^-/ {sub(/- /,""); print}'
-}
-
 load_config() {
     if stat "${HOME}/.config/code-launcher/config.yaml" &> /dev/null; then
         echo "Loading config..."
         yaml_content=$(cat ~/.config/code-launcher/config.yaml)
+        paths=$(echo "$yaml_content" | sed -n '/paths:/,/launchers:/p' | awk '/^-/ { print $2 }')
+        launchers=$(echo "$yaml_content" | awk '/launchers:/ {p=1; next} p && /^-/ {sub(/- /,""); print}')
+        get_ls_outputs
+        get_launchers
     else
         echo "Error: Config not found!"
         echo "Help: https://github.com/jtomaspm/code-launcher/tree/main?tab=readme-ov-file#configuration"
@@ -19,10 +15,64 @@ load_config() {
     fi
 }
 
+get_ls_outputs() {
+    ls_outputs=""
+    while IFS= read -r path; do
+        path="${path/#\~/${HOME}}"
+        ls_outputs+="$path"$'\n'
+        ls_outputs+="$(ls -d -1 "$path"*/ | while read dir; do realpath "$dir"; done)"$'\n'
+    done <<< "$paths"
+    ls_outputs=$(echo -e "$ls_outputs" | sed '$d')
+}
+
+get_launchers() {
+    launcher_opts="Open"$'\n'"New Folder"$'\n'
+    while IFS= read -r launcher; do
+        IFS=';' read -r name command <<< "$launcher"
+        launcher_opts+="$name"$'\n'
+    done <<< "$launchers"
+    launcher_opts=$(echo -e "$launcher_opts" | sed '$d')
+}
+
+new_folder() {
+    cd $path_opt 
+    read -p 'Folder Name: ' fname 
+    mkdir $fname 
+    cd $fname
+}
+
+get_command() {
+    if [[ "$launcher_opt" == "Open" ]]; then
+        command_opt="cd $path_opt"
+        return
+    fi
+    if [[ "$launcher_opt" == "New Folder" ]]; then
+        command_opt="new_folder"
+        return
+    fi
+    while IFS= read -r launcher; do
+        IFS=';' read -r name command <<< "$launcher"
+        if [[ "$name" == "$launcher_opt" ]]; then
+            command_opt="$command"
+            return
+        fi
+    done <<< "$launchers"
+}
+
+choose_path_menu() {
+    path_opt=$(echo "$ls_outputs" | fzf)
+}
+
+choose_launcher_menu() {
+    launcher_opt=$(echo "$launcher_opts" | fzf)
+    get_command
+}
+
 main() {
     load_config
-    extract_launchers "$yaml_content"
-    extract_paths "$yaml_content"
+    choose_path_menu
+    choose_launcher_menu
+    eval $command_opt
 }
 
 main
