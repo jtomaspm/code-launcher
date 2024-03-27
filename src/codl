@@ -35,7 +35,6 @@ get_launchers() {
 }
 
 new_folder() {
-    cd $path_opt 
     read -p 'Folder Name: ' fname 
     mkdir $fname 
     path_opt+="$fname/"
@@ -44,7 +43,7 @@ new_folder() {
 
 get_command() {
     if [[ "$launcher_opt" == "Open" ]]; then
-        command_opt="cd $path_opt"
+        command_opt="echo ' '"
         return
     fi
     if [[ "$launcher_opt" == "New Folder" ]]; then
@@ -67,6 +66,7 @@ choose_path_menu() {
 choose_launcher_menu() {
     launcher_opt=$(echo "$launcher_opts" | fzf)
     get_command
+    cd $path_opt 
     eval $command_opt
 }
 
