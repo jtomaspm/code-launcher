@@ -8,7 +8,7 @@ To be developed...
 
 ## Quick Setup Guide
 
-Install:
+Install/Update:
 ```
 wget https://github.com/jtomaspm/code-launcher/raw/main/install/install.sh && chmod +x install.sh &&./install.sh && rm install.sh
 ```
