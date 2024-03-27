@@ -2,7 +2,6 @@
 
 load_config() {
     if stat "${HOME}/.config/code-launcher/config.yaml" &> /dev/null; then
-        echo "Loading config..."
         yaml_content=$(cat ~/.config/code-launcher/config.yaml)
         paths=$(echo "$yaml_content" | sed -n '/paths:/,/launchers:/p' | awk '/^-/ { print $2 }')
         launchers=$(echo "$yaml_content" | awk '/launchers:/ {p=1; next} p && /^-/ {sub(/- /,""); print}')
@@ -34,8 +33,15 @@ get_launchers() {
     launcher_opts=$(echo -e "$launcher_opts" | sed '$d')
 }
 
+open_folder() {
+    fname=$(echo "$(ls -d */)" | fzf --header="Folder Name: ")
+    path_opt+="/$fname/"
+    choose_launcher_menu
+
+}
+
 new_folder() {
-    read -p 'Folder Name: ' fname 
+    fname=$(echo "" | fzf --header="Folder Name: " --print-query)
     mkdir $fname 
     path_opt+="/$fname/"
     choose_launcher_menu
@@ -43,7 +49,7 @@ new_folder() {
 
 get_command() {
     if [[ "$launcher_opt" == "Open" ]]; then
-        command_opt="echo ' '"
+        command_opt="open_folder"
         return
     fi
     if [[ "$launcher_opt" == "New Folder" ]]; then
